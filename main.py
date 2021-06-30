@@ -85,9 +85,9 @@ def evaluate_full(sess, test_data, model, model_path, batch_size, topN):
             for i, iid_list in enumerate(item_id):
                 recall = 0
                 dcg = 0.0
-                true_item_set = set(iid_list)
-                for no, iid in enumerate(I[i]):
-                    if iid in true_item_set:
+                item_list = set(I[i])
+                for no, iid in enumerate(iid_list):
+                    if iid in item_list:
                         recall += 1
                         dcg += 1.0 / math.log(no+2, 2)
                 idcg = 0.0
@@ -105,21 +105,18 @@ def evaluate_full(sess, test_data, model, model_path, batch_size, topN):
                 recall = 0
                 dcg = 0.0
                 item_list_set = set()
-                item_cor_list = []
 
                 item_list = list(zip(np.reshape(I[i*ni:(i+1)*ni], -1), np.reshape(D[i*ni:(i+1)*ni], -1)))
                 item_list.sort(key=lambda x:x[1], reverse=True)
-
+                
                 for j in range(len(item_list)):
                     if item_list[j][0] not in item_list_set and item_list[j][0] != 0:
                         item_list_set.add(item_list[j][0])
-                        item_cor_list.append(item_list[j][0])
                         if len(item_list_set) >= topN:
                             break
                             
-                true_item_set = set(iid_list)
-                for no, iid in enumerate(item_cor_list):
-                    if iid in true_item_set:
+                for no, iid in enumerate(iid_list):
+                    if iid in item_list_set:
                         recall += 1
                         dcg += 1.0 / math.log(no+2, 2)
                 idcg = 0.0
