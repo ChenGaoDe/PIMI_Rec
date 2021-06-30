@@ -33,9 +33,6 @@ You can use `python main.py --dataset {dataset_name} --time_span {time_threshold
 
 For example, you can use `python main.py --dataset book --time_span 64` to train PIMI model on Book dataset.
 
-### Metrics
-I'm so sorry that the computation of NDCG score is not consistent with the original definition, I just followed the code of [ComiRec](https://github.com/THUDM/ComiRec) and didn't check it carefully. I have revise this point in the code.
-
 ## Acknowledgement
 
 The structure of our code is based on [ComiRec](https://github.com/THUDM/ComiRec).
